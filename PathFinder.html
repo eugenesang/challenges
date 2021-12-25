@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>Path Finding Algorithm</title>
+    </head>
+    <body>
+        <div id="root">
+            <div>
+                select Game mode
+            </div>
+            <button onclick="makeSquares()">Mode 1</button>
+            <button>Mode 2</button>
+        </div>
+       <style type="text/css" media="all">
+           .cell{
+               display: inline-block;
+               width:9vw;
+               height:9vw;
+               border: 0.1vw solid black;
+               padding-top: 0vw;
+               padding-right: 0.1vw;
+           }
+           .path{
+               background-color: pink;
+               color:blue;
+           }
+           .bestPath{
+               background-color: green;
+               color: purple;
+           }
+       </style>
+       <script type="text/javascript" charset="utf-8">
+       // cells creator
+       function makeSquares(){
+           root.innerHTML="";
+           for(let i=0; i<100; i++){
+               let e=document.createElement("div");
+               e.setAttribute("class", "cell");
+               e.innerText=parseInt(Math.random()*10);
+               e.indexOf=i;
+               root.append(e);
+           }
+           
+       }
+       
+       // global variables
+       
+       let root = document.getElementById("root");
+       let start = root.children[0];
+       let stop = root.children[99];
+       let tracker = {
+           current:start,
+           path: [start],
+           isDone :  ()=>{
+               if(this.current.indexOf===99){
+                   return true;
+               }
+               return false;
+           },
+           clear : ()=>{
+               this.path=[start];
+               this.current=start;
+           }
+       }
+       
+       
+       // Moves
+       
+       function moveUp(current){
+           if(current.indexOf<10){
+               return new Error("Cant Move Up!");
+           }
+           return root.children[current.indexOf-10];
+       }
+       function moveRight(current){
+           if((current.indexOf+1)%10 ===0){
+               return new Error("Cant Move Right")
+           }
+           return root.children[current.indexOf+1]
+       }
+       function moveDown(current){
+           if(current.indexOf>=90){
+               return new Error("cant move down")
+           }
+           return root.children[current.indexOf+10]
+       }
+       function moveLeft(current){
+           if(current.indexOf%10===0)
+                return new Error("Cant Move Left");
+            return root.children[current.indexOf-1]
+       }
+       
+       function startMoving(){
+           
+       }
+       </script>
+    </body>
+</html>
